@@ -24,13 +24,11 @@
 
         <provider
             android:name=".model.datasource.CustomContentProvider"
-            android:authorities="com.example.android5777_4390_7178_01"
+            android:authorities="com.example.android5777_4390_7178_01.model.datasource.CustomContentProvider"
             android:enabled="true"
             android:exported="true" />
 
         <activity android:name=".Controller.Registery" />
-        <activity android:name=".Controller.AddBusiness" />
-        <activity android:name=".Controller.AddAttraction" />
 
         <receiver
             android:name=".model.backend.MyReceiver"
@@ -49,7 +47,12 @@
 
         <activity android:name=".Controller.AddBusinessActivity" />
         <activity android:name=".Controller.AddAttractionActivity" />
-        <activity android:name=".Controller.login"></activity>
+        <activity android:name=".Controller.login" />
+
+        <service
+            android:name=".model.backend.Service"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
 
 </manifest>

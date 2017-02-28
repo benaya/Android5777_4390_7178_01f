@@ -1,5 +1,6 @@
 package com.example.android5777_4390_7178_01.Controller;
 
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -13,12 +14,16 @@ import android.view.ViewGroup;
 import android.widget.CursorAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.android5777_4390_7178_01.R;
+import com.example.android5777_4390_7178_01.model.backend.IDSManager;
+import com.example.android5777_4390_7178_01.model.backend.ManagerFactory;
+import com.example.android5777_4390_7178_01.model.backend.MyService;
 import com.example.android5777_4390_7178_01.model.datasource.TravelContent;
 
 public class MainActivity extends AppCompatActivity {
-
+    IDSManager manager = ManagerFactory.getManager();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +31,28 @@ public class MainActivity extends AppCompatActivity {
 
         TextView s = (TextView) findViewById(R.id.textViewUser);
         s.setText(getIntent().getStringExtra("USERNAME"));
+
+        Log.d("TAG"," service start!!");
+        //  findViewById(R.id.bubuttonStart).setOnClickListener(new View.OnClickListener() {
+        //     @Override
+        //   public void onClick(View v) {
+        ComponentName componentName = new ComponentName
+                (
+                        "com.example.android5777_4390_7178_01",
+                        "com.example.android5777_4390_7178_01.model.backend.MyService"
+                );
+
+        Intent intent_2 = new Intent();
+        intent_2.setComponent(componentName);
+        startService(intent_2);
+        /*
+try {
+    if (manager.isBusinessChanged())
+        Toast.makeText(MainActivity.this, "ssss", Toast.LENGTH_LONG).show();
+}
+catch (Exception E)
+{}
+*/
 
 
         findViewById(R.id.buttonADDB).setOnClickListener(new View.OnClickListener() {
@@ -42,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intentAddAtraction = new Intent(MainActivity.this, AddAttractionActivity.class);
                 startActivity(intentAddAtraction);
+
             }
         });
 
@@ -54,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
                 new AsyncTask<Void, Void, Cursor>() {
                     @Override
                     protected Cursor doInBackground(Void... params) {
-                        Log.d("TAG", "main check2");
+
                         return getContentResolver().query(TravelContent.Attraction.ATTRACTION_URI, null, null, null, null);
                     }
 
@@ -66,18 +94,16 @@ public class MainActivity extends AppCompatActivity {
                             public View newView(Context context, Cursor cursor, ViewGroup parent) {
                                 TextView tv = new TextView(context);
                                 tv.setTextSize(20);
-                                tv.setTextColor(Color.GREEN);
+                                tv.setTextColor(Color.BLACK);
                                 return tv;
                             }
 
                             @Override
                             public void bindView(View view, Context context, Cursor cursor) {
                                 TextView tv = (TextView) view;
-                                tv.setText("[" + cursor.getString(0) + "]  " + cursor.getString(1));
+                                tv.setText("(" + cursor.getString(1) + ")  " + cursor.getString(6));
                             }
                         };
-                        Log.d("TAG", "main check3");
-
                         lecturerIdSpinner.setAdapter(adapter);
                         lecturerIdSpinner.setEnabled(true);
                     }
@@ -94,7 +120,6 @@ public class MainActivity extends AppCompatActivity {
                 new AsyncTask<Void, Void, Cursor>() {
                     @Override
                     protected Cursor doInBackground(Void... params) {
-                        Log.d("TAG", "main check2");
                         return getContentResolver().query(TravelContent.Business.BUSINESS_URI, null, null, null, null);
                     }
 
@@ -106,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
                             public View newView(Context context, Cursor cursor, ViewGroup parent) {
                                 TextView tv = new TextView(context);
                                 tv.setTextSize(20);
-                                tv.setTextColor(Color.GREEN);
+                                tv.setTextColor(Color.BLACK);
                                 return tv;
                             }
 
@@ -116,7 +141,6 @@ public class MainActivity extends AppCompatActivity {
                                 tv.setText("[" + cursor.getString(0) + "]  " + cursor.getString(1));
                             }
                         };
-                        Log.d("TAG", "main check3");
 
                         lecturerIdSpinner.setAdapter(adapter);
                         lecturerIdSpinner.setEnabled(true);

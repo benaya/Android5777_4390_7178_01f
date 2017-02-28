@@ -63,7 +63,7 @@ public class login extends AppCompatActivity {
                     forgotMail.put("code", rememberPassword.toString());
                     forgotMail.put("mail", rememberMail.toString());
 
-                    final Uri Urimail = Uri.parse("content://com.example.android5777_4390_7178_01/mail");
+                    final Uri Urimail = Uri.parse("content://com.example.android5777_4390_7178_01.model.datasource.CustomContentProvider/mail");
                     Log.d("TAG", "content mail good");
 
                     new AsyncTask<Void, Void, Uri>() {

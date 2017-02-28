@@ -47,7 +47,7 @@ public class ListDsManager implements IDSManager {
     public void addBusiness(ContentValues contant_business){
         try
         {
-            Log.d("TAG", "bussines almost added");
+
       /* businessList.add(new Business(contant_business.getAsLong(TravelContent.Business.business_id)
                ,contant_business.getAsString(TravelContent.Business.business_name),
                contant_business.getAsString(TravelContent.Business.business_street)
@@ -113,7 +113,6 @@ public class ListDsManager implements IDSManager {
                             m.getPassword()
                     });
         }
-
         return matrixCursor;
     }
 
@@ -159,8 +158,8 @@ public class ListDsManager implements IDSManager {
                         TravelContent.Attraction.activity_TStart,
                         TravelContent.Attraction.activity_TEnd,
                         TravelContent.Attraction.activity_price,
-                        TravelContent.Attraction.activity_description,
-                        TravelContent.Attraction.activity_id
+                        TravelContent.Attraction.activity_description
+                        //   TravelContent.Attraction.activity_id
                 };
 
         MatrixCursor matrixCursor = new MatrixCursor(columns);
@@ -174,13 +173,31 @@ public class ListDsManager implements IDSManager {
                             a.getActivityEnd(),
                             a.getActivityEnd(),
                             a.getPrice(),
-                            a.getDescription(),
-                            a.getIDbusines()
+                            a.getDescription()
+                            //    a.getIDbusines()
                     });
         }
         return matrixCursor;
     }
 
+    public void updateBusInListDB(Cursor b)
+    {
+        try {
+            b.moveToFirst();
+            while ((!b.isAfterLast()))//add all busines
+            {
+                businessList.add(new Business(b.getLong(0),b.getString(1),b.getString(2),b.getString(3),b.getString(4),b.getInt(5),
+                        b.getString(6),b.getString(7)));
+                b.moveToNext();
+            }
+            Log.d("DB", "bussines updated");
+            b.close();
+        }
+        catch (Exception e) {
+            Log.d("DB", e.getMessage());
+            throw new IllegalArgumentException(e.getMessage());
+        }
+    }
 
     @Override
     public boolean checkChanges() {
@@ -193,4 +210,9 @@ public class ListDsManager implements IDSManager {
         return false;
     }
 
+
+    public boolean isBusinessChanged()throws Exception
+    {return true;};
+    public boolean isActivityChanged()throws Exception
+    {return true;};
 }

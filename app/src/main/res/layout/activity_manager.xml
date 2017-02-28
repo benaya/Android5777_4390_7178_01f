@@ -9,31 +9,9 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/s"
     tools:context="com.example.android5777_4390_7178_01.model.entities.Manager">
 
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:layout_marginTop="96dp"
-        android:id="@+id/etUserName"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:hint="Email" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPassword"
-        android:ems="10"
-        android:id="@+id/etPassword"
-        android:layout_marginTop="31dp"
-        android:layout_below="@+id/etUserName"
-        android:layout_alignLeft="@+id/etUserName"
-        android:layout_alignStart="@+id/etUserName"
-        android:hint="Password" />
 
     <TextView
         android:text="Registery"
@@ -45,26 +23,11 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:typeface="monospace"
-        android:fontFamily="casual"
+        android:fontFamily="cursive"
         android:textAlignment="center"
-        android:textSize="24sp"
+        android:textSize="36sp"
         android:textStyle="normal|bold"
         android:textColor="@android:color/holo_orange_dark" />
-
-    <Button
-        android:text="Sign"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/buttonSign"
-        android:textAppearance="@style/TextAppearance.AppCompat"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:textStyle="normal|bold"
-        android:textSize="18sp"
-        android:textColor="@android:color/background_light"
-        android:onClick="buttonSign"
-        android:layout_marginTop="47dp"
-        android:layout_below="@+id/etPassword"
-        android:layout_centerHorizontal="true" />
 
     <TextView
         android:layout_width="match_parent"
@@ -73,4 +36,44 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="62dp"
         android:id="@+id/textTest" />
+
+    <Button
+        android:text="Sign"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/buttonSign"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:textStyle="normal|bold"
+        android:textSize="24sp"
+        android:textColor="@android:color/background_light"
+        android:onClick="buttonSign"
+        android:layout_above="@+id/textTest"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="18dp" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/etUserName"
+        android:hint="Email"
+        android:layout_marginBottom="36dp"
+        android:layout_above="@+id/etPassword"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/etPassword"
+        android:hint="Password"
+        android:layout_above="@+id/buttonSign"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="101dp" />
 </RelativeLayout>

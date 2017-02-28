@@ -3,14 +3,18 @@ package com.example.android5777_4390_7178_01.Controller;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.ContentValues;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -34,15 +38,24 @@ import static com.example.android5777_4390_7178_01.R.id.spinner;
 
 public class AddAttractionActivity extends Activity implements View.OnClickListener {
 
+    private static int numberAtt = 99;
     private Button addAttractionButton;
+
     private EditText description;
     private EditText country;
-    private EditText  price;
+    private EditText price;
     private Spinner spinner;
-    private TextView idBussines;
+    private EditText idBussines;
     private String type;
     private HelpDate sDate;
     private HelpDate eDate;
+
+    private String descriptionS;
+    private String priceS;
+    private String countryS;
+    private String idBussiness;
+    //private HelpDate sDates;
+    //private HelpDate eDates;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +68,7 @@ public class AddAttractionActivity extends Activity implements View.OnClickListe
     public void onClick(View v) {
         if (v == addAttractionButton) {
             addAttraction();
+
         }
     }
 
@@ -63,120 +77,109 @@ public class AddAttractionActivity extends Activity implements View.OnClickListe
         spinner = (Spinner) findViewById(R.id.spinnerAttraction);
         spinner.setAdapter(new ArrayAdapter<Activity_type>(this, android.R.layout.simple_spinner_item, Activity_type.values()));
 
-/*
-        // sDate = (Button) findViewById(R.id.buttonSdate);
-        //  eDate = (Button) findViewById(R.id.buttonEdate);
-        final Calendar c = Calendar.getInstance();
-        final int mYear = c.get(Calendar.YEAR);
-        final int mMonth = c.get(Calendar.MONTH);
-        final int mDay = c.get(Calendar.DAY_OF_MONTH);
-
-        sDate.setText(mDay + "/" + (mMonth + 1) + "/" + mYear);
-        sDate.setOnClickListener(
-                new View.OnClickListener() {
-                    @RequiresApi(api = Build.VERSION_CODES.N)
-                    @Override
-                    public void onClick(View view) {
-                        final Calendar c = Calendar.getInstance();
-                        DatePickerDialog dpd = new DatePickerDialog(AddAttractionActivity.this, android.R.style.Theme_Holo_Light_Dialog,
-                                new DatePickerDialog.OnDateSetListener() {
-
-                                    @Override
-                                    public void onDateSet(DatePicker view, int year,
-                                                          int monthOfYear, int dayOfMonth) {
-                                        // Display Selected date in textbox
-                                        sDate.setText(dayOfMonth + "/"
-                                                + (monthOfYear + 1) + "/" + year);
-
-                                    }
-                                }, mYear, mMonth, mDay);
-                        dpd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                        dpd.show();
-                    }
-
-                }
-        );
-
-        eDate.setText(mDay + "/" + (mMonth + 1) + "/" + mYear);
-        eDate.setOnClickListener(
-                new View.OnClickListener() {
-                    @RequiresApi(api = Build.VERSION_CODES.N)
-                    @Override
-                    public void onClick(View view) {
-                        final Calendar c = Calendar.getInstance();
-                        DatePickerDialog dpd = new DatePickerDialog(AddAttractionActivity.this, android.R.style.Theme_Holo_Light_Dialog,
-                                new DatePickerDialog.OnDateSetListener() {
-
-                                    @Override
-                                    public void onDateSet(DatePicker view, int year,
-                                                          int monthOfYear, int dayOfMonth) {
-                                        // Display Selected date in textbox
-                                        eDate.setText(dayOfMonth + "/"
-                                                + (monthOfYear + 1) + "/" + year);
-
-                                    }
-                                }, mYear, mMonth, mDay);
-                        dpd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                        dpd.show();
-                    }
-
-                }
-        );*/
-
         sDate = (HelpDate) findViewById(R.id.Sdate);
         eDate = (HelpDate) findViewById(R.id.Edate);
-        description = (EditText)findViewById( R.id.etDescription );
-        country = (EditText)findViewById( R.id.etCountry );
-        price = (EditText)findViewById( R.id.etPrice );
-        type = ((Activity_type)spinner.getSelectedItem()).name();
-        Log.d("TAG","type"+type.toString());
+        description = (EditText) findViewById(R.id.etDescription);
+        country = (EditText) findViewById(R.id.etCountry);
+        price = (EditText) findViewById(R.id.etPrice);
+
         addAttractionButton = (Button) findViewById(R.id.buttonAddAtraction);
         addAttractionButton.setOnClickListener(this);
 
-        idBussines = (TextView) findViewById( R.id.tVID );
-        idBussines.setText(getIntent().getStringExtra("ID BUSSINES"));
+        idBussines = (EditText) findViewById(R.id.etIdAtt);
 
         final Uri uri = TravelContent.Attraction.ATTRACTION_URI;
+    }
+
+    public void checkKelet() {
+        priceS = price.getText().toString();
+        descriptionS = description.getText().toString();
+        countryS = country.getText().toString();
+        idBussiness = idBussines.getText().toString();
     }
 
     private void addAttraction() {
 
-        final Uri uri = TravelContent.Attraction.ATTRACTION_URI;
+        price.setError(null);
+        description.setError(null);
+        country.setError(null);
+        try {
 
-        final ContentValues contentValuesAttarction = new ContentValues();
+            Log.d("TAG", "taking data from UI");
+            checkKelet();
+            boolean cancel = false;
+            View focusView = null;
 
-        Date SDate = sDate.getDate();
-        Date EDate = eDate.getDate();
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); // like MySQL Format
-        String SdateString = dateFormat.format(SDate);
-        String EdateString = dateFormat.format(EDate);
-
-        contentValuesAttarction.put(TravelContent.Attraction.activity_type, String.valueOf(type.toString()));
-        contentValuesAttarction.put(TravelContent.Attraction.activity_country,country.getText().toString());
-        contentValuesAttarction.put(TravelContent.Attraction.activity_TStart,SdateString);
-        contentValuesAttarction.put(TravelContent.Attraction.activity_TEnd,EdateString);
-        contentValuesAttarction.put(TravelContent.Attraction.activity_price,price.getText().toString());
-        contentValuesAttarction.put(TravelContent.Attraction.activity_description,description.getText().toString());
-        contentValuesAttarction.put(TravelContent.Attraction.activity_id,idBussines.getText().toString());
-
-        new AsyncTask<Void, Void, Uri>() {
-            @Override
-            protected Uri doInBackground(Void... params) {
-                Log.d("TAG","AsyncTask Attarction good");
-                getContentResolver().insert(uri, contentValuesAttarction);
-                Log.d("TAG","content Attarction good");
-                return null;
+            if (TextUtils.isEmpty(descriptionS)) {
+                description.setError("אתה חייב למלא את כל השדות!");
+                focusView = description;
+                cancel = true;
             }
 
-            @Override
-            protected void onPostExecute(Uri uriResult) {
-                super.onPostExecute(uriResult);
-                Log.d("TAG","AsyncTask Attarction NOT good");
-                Toast.makeText(getBaseContext(), "insert id: " + idBussines.getText().toString(), Toast.LENGTH_LONG).show();
-
-                //  updateItemList(uri);
+            if (TextUtils.isEmpty(countryS)) {
+                country.setError("אתה חייב למלא את כל השדות!");
+                focusView = country;
+                cancel = true;
             }
-        }.execute();
+
+            // Check for a valid phone, if the user entered one.
+            if (sDate.getDate().after(eDate.getDate())) {
+                eDate.setError("תאריך הסיום שהוכנס אינו תקין!");
+                focusView = price;
+                cancel = true;
+            }
+
+            if (cancel) {
+                focusView.requestFocus();
+            } else {
+                final Uri uri = TravelContent.Attraction.ATTRACTION_URI;
+                type = ((Activity_type) spinner.getSelectedItem()).name();
+                final ContentValues contentValuesAttarction = new ContentValues();
+
+                Date SDate = sDate.getDate();
+                Date EDate = eDate.getDate();
+                DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); // like MySQL Format
+                String SdateString = dateFormat.format(SDate);
+                String EdateString = dateFormat.format(EDate);
+
+                // contentValuesAttarction.put("_id", "");
+                contentValuesAttarction.put(TravelContent.Attraction.activity_type, type.toString());
+                contentValuesAttarction.put(TravelContent.Attraction.activity_country, country.getText().toString());
+                contentValuesAttarction.put(TravelContent.Attraction.activity_TStart, SdateString);
+                contentValuesAttarction.put(TravelContent.Attraction.activity_TEnd, EdateString);
+                contentValuesAttarction.put(TravelContent.Attraction.activity_price, price.getText().toString());
+                contentValuesAttarction.put(TravelContent.Attraction.activity_description, description.getText().toString());
+                if (!((TextUtils.isEmpty(idBussiness)))) {
+                    //        contentValuesAttarction.put(TravelContent.Attraction.activity_id, idBussines.getText().toString());
+                    contentValuesAttarction.put(TravelContent.Attraction.ID_activity, idBussines.getText().toString());
+                }
+                else {
+                    numberAtt++;
+                    //       contentValuesAttarction.put(TravelContent.Attraction.activity_id, numberAtt);
+                    numberAtt++;
+                    contentValuesAttarction.put(TravelContent.Attraction.ID_activity, numberAtt);
+                }
+                new AsyncTask<Void, Void, Uri>() {
+                    @Override
+                    protected Uri doInBackground(Void... params) {
+                        getContentResolver().insert(uri, contentValuesAttarction);
+                        return null;
+                    }
+
+                    @Override
+                    protected void onPostExecute(Uri uriResult) {
+                        super.onPostExecute(uriResult);
+                        Toast.makeText(getBaseContext(), "insert id: " + idBussines.getText().toString(), Toast.LENGTH_LONG).show();
+                        finish();
+                    }
+                }.execute();
+            }
+
+        } catch (Exception e) {
+            Log.d("TAG", "fail to add new business due to:  " + e);
+        }
     }
+
+
 }
 

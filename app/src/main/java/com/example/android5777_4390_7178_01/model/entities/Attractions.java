@@ -15,10 +15,10 @@ public class Attractions {
     private Date activityEnd;
     private int price;
     private String description;
-    private long IDbusines;
+    //  private long IDbusines;
 
     public  Attractions(int idActivity, Activity_type types, String country,Date  activityStart, Date  activityEnd,
-                        int price, String description, Long IDbusiness) {
+                        int price, String description) {
         this.idActivity = idActivity;
         this.types = types;
         this.country = country;
@@ -26,7 +26,7 @@ public class Attractions {
         this.activityEnd = activityEnd;
         this.price = price;
         this.description = description;
-        this.IDbusines = IDbusines;
+        //   this.IDbusines = IDbusines;
     }
 
     public  Attractions(){};
@@ -87,11 +87,11 @@ public class Attractions {
         this.description = description;
     }
 
-    public long getIDbusines() {
-        return IDbusines;
-    }
+    //  public long getIDbusines() {
+    //      return IDbusines;
+    // }
 
-    public void setIDbusines(long IDbusines) {
-        this.IDbusines = IDbusines;
-    }
+    //  public void setIDbusines(long IDbusines) {
+    //  this.IDbusines = IDbusines;
+    //  }
 }

@@ -17,7 +17,7 @@ import java.text.SimpleDateFormat;
 
 public class TravelContent {
 
-    public static final String AUTHORITY = "com.example.android5777_4390_7178_01";
+    public static final String AUTHORITY = "com.example.android5777_4390_7178_01.model.datasource.CustomContentProvider";
     /**
      * A content:// style uri to the authority for the contacts provider
      */
@@ -87,9 +87,9 @@ public class TravelContent {
         String dateStart = contant_attraction.getAsString(TravelContent.Attraction.activity_TStart);
         String dateEnd = contant_attraction.getAsString(TravelContent.Attraction.activity_TEnd);
 
-        Activity_type activity_type = Activity_type.valueOf(contant_attraction.getAsString(TravelContent.Attraction.activity_type));
-        attractions.setIdActivity(contant_attraction.getAsInteger("_id"));
-        attractions.setTypes(activity_type);
+        // Activity_type activity_type = Activity_type.valueOf(contant_attraction.getAsString(TravelContent.Attraction.activity_type));
+        //  attractions.setIdActivity(contant_attraction.getAsInteger("_id"));
+        attractions.setTypes(Activity_type.valueOf(contant_attraction.getAsString(TravelContent.Attraction.activity_type)));
         attractions.setCountry(contant_attraction.getAsString(TravelContent.Attraction.activity_country));
         try {
             attractions.setActivityStart(dateFormat.parse(dateStart));
@@ -103,12 +103,10 @@ public class TravelContent {
         }
         attractions.setPrice(contant_attraction.getAsInteger(TravelContent.Attraction.activity_price));
         attractions.setDescription(contant_attraction.getAsString(TravelContent.Attraction.activity_description));
-        attractions.setIDbusines(contant_attraction.getAsLong(TravelContent.Attraction.activity_id));
-
+        //   attractions.setIDbusines(contant_attraction.getAsLong(TravelContent.Attraction.activity_id));
+        attractions.setIdActivity(contant_attraction.getAsInteger(TravelContent.Attraction.ID_activity));
         return attractions;
     }
 }
-
-
 
 

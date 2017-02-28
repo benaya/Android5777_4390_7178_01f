@@ -23,6 +23,8 @@ public interface IDSManager {
     Cursor getBusiness();
     Cursor getAttraction();
 
+    public boolean isBusinessChanged()throws Exception;
+    public boolean isActivityChanged()throws Exception;
     boolean checkChanges();
 //    void reportChanges();
 

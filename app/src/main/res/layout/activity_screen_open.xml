@@ -14,19 +14,18 @@
     >
 
     <TextView
-    android:text="Loading...."
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+        android:text="Loading...."
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:id="@+id/textView9"
-    android:fontFamily="sans-serif-smallcaps"
-    android:textAlignment="center"
-    android:textSize="30sp"
-    android:textStyle="normal|bold"
-    android:textColor="@android:color/background_light"
+        android:fontFamily="cursive"
+        android:textAlignment="center"
+        android:textSize="36sp"
+        android:textStyle="normal|bold"
+        android:textColor="@android:color/background_dark"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:typeface="sans" />
-
 
 </RelativeLayout>

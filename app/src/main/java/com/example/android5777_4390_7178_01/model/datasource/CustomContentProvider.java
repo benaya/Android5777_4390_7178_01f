@@ -50,12 +50,12 @@ public class CustomContentProvider extends ContentProvider {
 
             case "business":
                 manager.addBusiness(values);
-                Log.d("TAG", "content bus good");
+
                 //return ContentUris.withAppendedId(uri, id);
 
             case "attraction":
                 manager.addAttraction(values);
-                Log.d("TAG", "content att good");
+
             //    return ContentUris.withAppendedId(uri, id);
         }
         return null;
