@@ -115,7 +115,7 @@ public class MyService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
 
         Log.i(TAG, "Service onStartCommand");
-
+        Log.i(TAG, "Service onStartCommand1");
         //Creating new thread for my service
         //Always write your long running tasks in a separate thread, to avoid ANR
         new Thread(new Runnable() {
